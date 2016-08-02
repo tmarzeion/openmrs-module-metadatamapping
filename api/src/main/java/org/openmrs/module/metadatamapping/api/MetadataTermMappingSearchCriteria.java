@@ -11,6 +11,12 @@ import org.openmrs.module.metadatamapping.MetadataTermMapping.MetadataReference;
  */
 public class MetadataTermMappingSearchCriteria extends MetadataSearchCriteria {
 	
+	public enum DefinedOrUndefined {
+		TRUE, FALSE, NULL
+	}
+	
+	private DefinedOrUndefined definedOrUndefined = DefinedOrUndefined.NULL;
+	
 	private MetadataSource metadataSource;
 	
 	private String metadataTermCode;
@@ -31,9 +37,12 @@ public class MetadataTermMappingSearchCriteria extends MetadataSearchCriteria {
 	 * @param metadataTermName only get a term mapping with this name (note that names are unique)
 	 * @param referredObject only get term mappings that refer to this metadata object
 	 */
-	public MetadataTermMappingSearchCriteria(boolean includeAll, Integer firstResult, Integer maxResults,
-	    MetadataSource metadataSource, String metadataTermCode, String metadataTermName, OpenmrsMetadata referredObject) {
+	
+	public MetadataTermMappingSearchCriteria(boolean includeAll, DefinedOrUndefined definedOrUndefined, Integer firstResult,
+	    Integer maxResults, MetadataSource metadataSource, String metadataTermCode, String metadataTermName,
+	    OpenmrsMetadata referredObject) {
 		super(includeAll, firstResult, maxResults);
+		this.definedOrUndefined = definedOrUndefined;
 		this.metadataSource = metadataSource;
 		this.metadataTermCode = metadataTermCode;
 		this.metadataTermName = metadataTermName;
@@ -50,14 +59,22 @@ public class MetadataTermMappingSearchCriteria extends MetadataSearchCriteria {
 	 * @param metadataTermName only get a term mapping with this name (note that names are unique)
 	 * @param referredObjectReference only get term mappings that refer to this metadata object
 	 */
-	public MetadataTermMappingSearchCriteria(boolean includeAll, Integer firstResult, Integer maxResults,
-	    MetadataSource metadataSource, String metadataTermCode, String metadataTermName,
+	public MetadataTermMappingSearchCriteria(boolean includeAll, DefinedOrUndefined definedOrUndefined, Integer firstResult,
+	    Integer maxResults, MetadataSource metadataSource, String metadataTermCode, String metadataTermName,
 	    MetadataReference referredObjectReference) {
 		super(includeAll, firstResult, maxResults);
+		this.definedOrUndefined = definedOrUndefined;
 		this.metadataSource = metadataSource;
 		this.metadataTermCode = metadataTermCode;
 		this.metadataTermName = metadataTermName;
 		this.referredObjectReference = referredObjectReference;
+	}
+	
+	/**
+	 * @return defined or undefined mappings
+	 */
+	public DefinedOrUndefined getReturnDefinedOrUndefined() {
+		return definedOrUndefined;
 	}
 	
 	/**

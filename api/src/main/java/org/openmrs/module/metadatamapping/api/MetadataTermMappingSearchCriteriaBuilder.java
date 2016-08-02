@@ -11,6 +11,8 @@ public class MetadataTermMappingSearchCriteriaBuilder {
 	
 	private boolean includeAll = false;
 	
+	private MetadataTermMappingSearchCriteria.DefinedOrUndefined definedOrUndefined = MetadataTermMappingSearchCriteria.DefinedOrUndefined.NULL;
+	
 	private Integer firstResult = 0;
 	
 	private Integer maxResults;
@@ -31,6 +33,16 @@ public class MetadataTermMappingSearchCriteriaBuilder {
 	 */
 	public MetadataTermMappingSearchCriteriaBuilder setIncludeAll(boolean includeAll) {
 		this.includeAll = includeAll;
+		return this;
+	}
+	
+	/**
+	 * @param definedOrUndefined return defined or undefined mappings (null by default (returns both defined and undefined), possible: true, false, null)
+	 * @return this builder
+	 */
+	public MetadataTermMappingSearchCriteriaBuilder setReturnDefinedOrUndefined(
+	        MetadataTermMappingSearchCriteria.DefinedOrUndefined definedOrUndefined) {
+		this.definedOrUndefined = definedOrUndefined;
 		return this;
 	}
 	
@@ -108,11 +120,11 @@ public class MetadataTermMappingSearchCriteriaBuilder {
 	 */
 	public MetadataTermMappingSearchCriteria build() {
 		if (referredObject != null) {
-			return new MetadataTermMappingSearchCriteria(includeAll, firstResult, maxResults, metadataSource,
-			        metadataTermCode, metadataTermName, referredObject);
+			return new MetadataTermMappingSearchCriteria(includeAll, definedOrUndefined, firstResult, maxResults,
+			        metadataSource, metadataTermCode, metadataTermName, referredObject);
 		} else {
-			return new MetadataTermMappingSearchCriteria(includeAll, firstResult, maxResults, metadataSource,
-			        metadataTermCode, metadataTermName, referredObjectReference);
+			return new MetadataTermMappingSearchCriteria(includeAll, definedOrUndefined, firstResult, maxResults,
+			        metadataSource, metadataTermCode, metadataTermName, referredObjectReference);
 		}
 	}
 }

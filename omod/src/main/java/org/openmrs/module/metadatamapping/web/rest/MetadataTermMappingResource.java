@@ -11,6 +11,7 @@ import org.openmrs.module.metadatamapping.MetadataSource;
 import org.openmrs.module.metadatamapping.MetadataTermMapping;
 import org.openmrs.module.metadatamapping.MetadataTermMapping.MetadataReference;
 import org.openmrs.module.metadatamapping.api.MetadataMappingService;
+import org.openmrs.module.metadatamapping.api.MetadataTermMappingSearchCriteria;
 import org.openmrs.module.metadatamapping.api.MetadataTermMappingSearchCriteriaBuilder;
 import org.openmrs.module.metadatamapping.web.controller.MetadataMappingRestController;
 import org.openmrs.module.webservices.rest.SimpleObject;
@@ -42,6 +43,8 @@ public class MetadataTermMappingResource extends MetadataDelegatingCrudResource<
 	public static final String PARAM_REFERENCE_CLASS = "refClass";
 	
 	public static final String PARAM_REFERENCE_UUID = "refUuid";
+	
+	public static final String PARAM_DEFINED = "def";
 	
 	@Override
 	public MetadataTermMapping getByUniqueId(String uniqueId) {
@@ -199,6 +202,16 @@ public class MetadataTermMappingResource extends MetadataDelegatingCrudResource<
 			        referredObjectUuid.trim()));
 		}
 		
+		String isReturnOnlyDefined = context.getParameter(PARAM_DEFINED);
+		if (StringUtils.isNotBlank(isReturnOnlyDefined)) {
+			if (isReturnOnlyDefined.toLowerCase().equals("true")) {
+				searchCriteriaBuilder.setReturnDefinedOrUndefined(MetadataTermMappingSearchCriteria.DefinedOrUndefined.TRUE);
+			} else if (isReturnOnlyDefined.toLowerCase().equals("false")) {
+				searchCriteriaBuilder
+				        .setReturnDefinedOrUndefined(MetadataTermMappingSearchCriteria.DefinedOrUndefined.FALSE);
+			}
+		}
+		
 		Integer firstResult = context.getStartIndex();
 		if (firstResult == null) {
 			firstResult = 0;
@@ -209,7 +222,7 @@ public class MetadataTermMappingResource extends MetadataDelegatingCrudResource<
 		}
 		
 		boolean hasMore = false;
-		searchCriteriaBuilder.setFirstResult(firstResult).setMaxResults(maxResults + 1).build();
+		searchCriteriaBuilder.setFirstResult(firstResult).setMaxResults(maxResults + 1);
 		
 		List<MetadataTermMapping> metadataTermMappings = getService().getMetadataTermMappings(searchCriteriaBuilder.build());
 		if (metadataTermMappings.size() > maxResults) {
