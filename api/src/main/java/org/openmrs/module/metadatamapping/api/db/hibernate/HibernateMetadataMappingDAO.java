@@ -149,6 +149,14 @@ public class HibernateMetadataMappingDAO implements MetadataMappingDAO {
 			criteria.add(Restrictions.eq("retired", false));
 		}
 		
+		if (searchCriteria.getReturnDefinedOrUndefined() != MetadataTermMappingSearchCriteria.DefinedOrUndefined.NULL) {
+			if (searchCriteria.getReturnDefinedOrUndefined() == MetadataTermMappingSearchCriteria.DefinedOrUndefined.TRUE) {
+				criteria.add(Restrictions.isNotNull("metadataUuid"));
+			} else {
+				criteria.add(Restrictions.isNull("metadataUuid"));
+			}
+		}
+		
 		if (searchCriteria.getMetadataSource() != null) {
 			criteria.add(Restrictions.eq("metadataSource", searchCriteria.getMetadataSource()));
 		}

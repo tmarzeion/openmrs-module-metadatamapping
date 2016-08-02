@@ -1,5 +1,7 @@
 package org.openmrs.module.metadatamapping.api;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
+import org.apache.commons.lang.enums.Enum;
 import org.openmrs.OpenmrsMetadata;
 import org.openmrs.module.metadatamapping.MetadataSource;
 import org.openmrs.module.metadatamapping.MetadataTermMapping.MetadataReference;
@@ -11,7 +13,13 @@ import org.openmrs.module.metadatamapping.MetadataTermMapping.MetadataReference;
  */
 public class MetadataTermMappingSearchCriteria {
 	
+	public enum DefinedOrUndefined {
+		TRUE, FALSE, NULL
+	}
+	
 	private boolean includeAll;
+	
+	private DefinedOrUndefined definedOrUndefined = DefinedOrUndefined.NULL;
 	
 	private Integer firstResult;
 	
@@ -37,9 +45,11 @@ public class MetadataTermMappingSearchCriteria {
 	 * @param metadataTermName only get a term mapping with this name (note that names are unique)
 	 * @param referredObject only get term mappings that refer to this metadata object
 	 */
-	public MetadataTermMappingSearchCriteria(boolean includeAll, Integer firstResult, Integer maxResults,
-	    MetadataSource metadataSource, String metadataTermCode, String metadataTermName, OpenmrsMetadata referredObject) {
+	public MetadataTermMappingSearchCriteria(boolean includeAll, DefinedOrUndefined definedOrUndefined, Integer firstResult,
+	    Integer maxResults, MetadataSource metadataSource, String metadataTermCode, String metadataTermName,
+	    OpenmrsMetadata referredObject) {
 		this.includeAll = includeAll;
+		this.definedOrUndefined = definedOrUndefined;
 		this.firstResult = firstResult;
 		this.maxResults = maxResults;
 		this.metadataSource = metadataSource;
@@ -58,10 +68,11 @@ public class MetadataTermMappingSearchCriteria {
 	 * @param metadataTermName only get a term mapping with this name (note that names are unique)
 	 * @param referredObjectReference only get term mappings that refer to this metadata object
 	 */
-	public MetadataTermMappingSearchCriteria(boolean includeAll, Integer firstResult, Integer maxResults,
-	    MetadataSource metadataSource, String metadataTermCode, String metadataTermName,
+	public MetadataTermMappingSearchCriteria(boolean includeAll, DefinedOrUndefined definedOrUndefined, Integer firstResult,
+	    Integer maxResults, MetadataSource metadataSource, String metadataTermCode, String metadataTermName,
 	    MetadataReference referredObjectReference) {
 		this.includeAll = includeAll;
+		this.definedOrUndefined = definedOrUndefined;
 		this.firstResult = firstResult;
 		this.maxResults = maxResults;
 		this.metadataSource = metadataSource;
@@ -75,6 +86,13 @@ public class MetadataTermMappingSearchCriteria {
 	 */
 	public boolean isIncludeAll() {
 		return includeAll;
+	}
+	
+	/**
+	 * @return defined or undefined mappings
+	 */
+	public DefinedOrUndefined getReturnDefinedOrUndefined() {
+		return definedOrUndefined;
 	}
 	
 	/**
