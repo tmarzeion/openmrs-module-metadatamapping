@@ -10,20 +10,20 @@ let setModule = angular.module('set', [ uiRouter, 'openmrs-contrib-uicommons'])
 
         $stateProvider.state('set', {
             url: '/set/:UUID',
-            template: "<set></set>",
+            template: "<set mapping='$resolve.mapping'></set>",
             resolve: {
-                singleTermmapping: singleTermmapping
+                mapping: mapping
             }
         })
     })
     .component('set', setComponent);
 
+function mapping(openmrsRest, $stateParams) {
 
-
-function singleTermmapping($state, openmrsRest) {
-    "ngInject";
     return openmrsRest.getFull('metadatamapping/termmapping',
-        {uuid: $state.params.UUID})
+        {uuid: $stateParams.UUID}).then(function(response){
+            return response;
+        })
 }
 
 export default setModule;

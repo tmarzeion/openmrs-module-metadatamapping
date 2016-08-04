@@ -1,5 +1,8 @@
 class HomeController {
-  constructor() {
+  constructor($rootScope) {
+    $rootScope.links = {};
+    $rootScope.links["Manage Mappings"] = "/";
+
     var vm = this;
 
     // Metadata Term Mapping table properties
@@ -31,7 +34,7 @@ class HomeController {
         "label": "Code"
       },
       {
-        "property": "mappedObject.uuid",
+        "property": "metadataUuid",
         "label":"Referenced UUID"
       }];
 

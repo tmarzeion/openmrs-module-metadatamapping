@@ -3,7 +3,9 @@ import controller from './set.controller.js';
 
 let setComponent = {
     restrict: 'E',
-    bindings: {},
+    bindings: {
+        mapping : "<"
+    },
     template: template,
     controller: controller,
     controllerAs: 'vm'
