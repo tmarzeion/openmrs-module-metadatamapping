@@ -1,7 +1,5 @@
 class MainController {
-    constructor($rootScope) {
-        $rootScope.links = {};
-        $rootScope.links["Manage Mappings"] = "/";
+    constructor() {
     }
 }
 export default MainController;

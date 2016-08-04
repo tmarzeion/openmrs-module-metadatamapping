@@ -1,22 +1,32 @@
 <div>
-    <openmrs-list
-            resource="vm.resourceDefined"
-            custom-params="vm.customParamsDefined"
-            columns="vm.columnsDefined"
-            actions="vm.actionsDefined"
-            list-all="true"
-            limit="vm.limitDefined"
-            disable-links="vm.disableLinksDefined">
-    </openmrs-list>
+    <fieldset>
+        <legend>Defined mappings</legend>
+        <div>
+            <openmrs-list
+                    resource="vm.resourceDefined"
+                    custom-params="vm.customParamsDefined"
+                    columns="vm.columnsDefined"
+                    actions="vm.actionsDefined"
+                    list-all="true"
+                    limit="vm.limitDefined"
+                    disable-links="vm.disableLinksDefined">
+            </openmrs-list>
+        </div>
+    </fieldset>
 </div>
 <div>
-    <openmrs-list
-            resource="vm.resourceUndefined"
-            custom-params="vm.customParamsUndefined"
-            columns="vm.columnsUndefined"
-            actions="vm.actionsUndefined"
-            list-all="true"
-            limit="vm.limitUndefined"
-            disable-links="vm.disableLinksUndefined">
-    </openmrs-list>
+    <fieldset>
+        <legend>Undefined mappings</legend>
+        <div id="content" class="container">
+            <openmrs-list
+                    resource="vm.resourceUndefined"
+                    custom-params="vm.customParamsUndefined"
+                    columns="vm.columnsUndefined"
+                    actions="vm.actionsUndefined"
+                    list-all="true"
+                    limit="vm.limitUndefined"
+                    disable-links="vm.disableLinksUndefined">
+            </openmrs-list>
+        </div>
+    </fieldset>
 </div>
